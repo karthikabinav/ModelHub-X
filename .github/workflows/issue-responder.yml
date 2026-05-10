@@ -1,32 +1,10 @@
-name: Issue Responder
+name: Issue Responder (Disabled)
 
 on:
-  issues:
-    types: [opened]
-
-permissions:
-  issues: write
+  workflow_dispatch:
 
 jobs:
-  respond:
+  disabled:
     runs-on: ubuntu-latest
     steps:
-      - name: Respond based on issue label
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const labels = (context.payload.issue.labels || []).map((label) => label.name);
-            let body = 'Hello, world!';
-
-            if (labels.includes('bug')) {
-              body = 'Thank you. We will fix it.';
-            } else if (labels.includes('feature')) {
-              body = 'Thank you, we will consider to include this feature.';
-            }
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body,
-            });
+      - run: echo "Disabled in favor of .github/workflows/issue-automation.yml"

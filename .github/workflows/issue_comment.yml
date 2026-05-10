@@ -1,29 +1,10 @@
-name: Issue Comments
-on:
-  issues:
-    types: [opened]
+name: Issue Comments (Disabled)
 
-permissions:
-  issues: write
+on:
+  workflow_dispatch:
 
 jobs:
-  comment:
+  disabled:
     runs-on: ubuntu-latest
     steps:
-      - name: Comment on issue
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const labels = context.payload.issue.labels.map(l => l.name);
-            let body = "Hello, world!";
-            if (labels.includes("bug")) {
-              body = "Thank you. We will fix it.";
-            } else if (labels.includes("feature")) {
-              body = "Thank you, we will consider to include this feature.";
-            }
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+      - run: echo "Disabled in favor of .github/workflows/issue-automation.yml"
