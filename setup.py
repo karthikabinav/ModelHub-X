@@ -14,6 +14,7 @@
 
 from setuptools import find_packages, setup
 
+
 extras = {}
 extras["quality"] = ["ruff == 0.13.1"]
 
