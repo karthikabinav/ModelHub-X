@@ -1,29 +1,26 @@
-name: Issue Comment Automation
-
+name: Issue Comment Automator
 on:
   issues:
-    types: [opened]
-
+    types: [opened, labeled]
 jobs:
-  comment:
+  auto-comment:
     runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
-      - name: Comment on issue
-        uses: actions/github-script@v6
+      - uses: actions/github-script@v6
         with:
           script: |
             const labels = context.payload.issue.labels.map(l => l.name);
-            let body = "Hello, world!";
+            let message = "Hello, world!";
             if (labels.includes("bug")) {
-              body = "Thank you. We will fix it.";
+              message = "Thank you. We will fix it.";
             } else if (labels.includes("feature")) {
-              body = "Thank you, we will consider to include this feature.";
+              message = "Thank you, we will consider to include this feature.";
             }
             await github.rest.issues.createComment({
-              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: body
+              issue_number: context.issue.number,
+              body: message
             });
