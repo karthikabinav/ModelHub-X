@@ -1,45 +1,10 @@
-name: Issue Auto-Responder
+name: Issue Responder
 
 on:
-  issues:
-    types: [opened, labeled]
+  workflow_dispatch:
 
 jobs:
-  respond:
+  noop:
     runs-on: ubuntu-latest
     steps:
-      - name: Respond to bug issues
-        if: contains(github.event.issue.labels.*.name, 'bug')
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: 'Thank you. We will fix it.'
-            })
-
-      - name: Respond to feature issues
-        if: contains(github.event.issue.labels.*.name, 'feature')
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: 'Thank you, we will consider to include this feature.'
-            })
-
-      - name: Respond to other issues
-        if: "!contains(github.event.issue.labels.*.name, 'bug') && !contains(github.event.issue.labels.*.name, 'feature')"
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: 'Hello, world!'
-            })
+      - run: echo "Disabled in favor of .github/workflows/issue_comment.yml"

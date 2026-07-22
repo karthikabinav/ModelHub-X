@@ -1,20 +1,10 @@
-name: Issue Auto-Comment
+name: Issue Automation
+
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
+
 jobs:
-  comment:
+  noop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            const labels = context.payload.issue.labels.map(l => l.name);
-            let body = "Hello, world!";
-            if (labels.includes("bug")) { body = "Thank you. We will fix it."; }
-            else if (labels.includes("feature")) { body = "Thank you, we will consider to include this feature."; }
-            github.rest.issues.createComment({
-              ...context.repo,
-              issue_number: context.issue.number,
-              body
-            });
+      - run: echo "Disabled in favor of .github/workflows/issue_comment.yml"
