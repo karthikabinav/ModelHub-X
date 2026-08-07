@@ -1,10 +1,27 @@
-name: Issue Automation
-
+name: Issue Commenter
 on:
-  workflow_dispatch:
+  issues:
+    types: [opened]
 
 jobs:
-  noop:
+  comment:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Disabled in favor of .github/workflows/issue_comment.yml"
+      - name: Comment on bug issues
+        if: contains(github.event.issue.labels.*.name, "bug")
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: "Thank you. We will fix it."
+      - name: Comment on feature issues
+        if: contains(github.event.issue.labels.*.name, "feature")
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: "Thank you, we will consider to include this feature."
+      - name: Comment on other issues
+        if: ${{ !contains(github.event.issue.labels.*.name, "bug") && !contains(github.event.issue.labels.*.name, "feature") }}
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: "Hello, world!"
