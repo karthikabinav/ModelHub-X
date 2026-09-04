@@ -1,41 +1,10 @@
 name: Issue Commenter
+
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
+
 jobs:
-  comment:
+  noop:
     runs-on: ubuntu-latest
     steps:
-      - name: Comment on bug
-        if: contains(github.event.issue.labels.*.name, 'bug')
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Thank you. We will fix it.'
-            })
-      - name: Comment on feature
-        if: contains(github.event.issue.labels.*.name, 'feature')
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Thank you, we will consider to include this feature.'
-            })
-      - name: Comment on others
-        if: "!contains(github.event.issue.labels.*.name, 'bug') && !contains(github.event.issue.labels.*.name, 'feature')"
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Hello, world!'
-            })
+      - run: echo "Disabled in favor of .github/workflows/issue_comment.yml"
