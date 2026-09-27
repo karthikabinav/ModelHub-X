@@ -36,6 +36,7 @@ extras["test_dev"] = [
 extras["testing"] = extras["test_prod"] + extras["test_dev"]
 extras["deepspeed"] = ["deepspeed"]
 extras["rich"] = ["rich"]
+
 extras["test_fp8"] = ["torchao"]  # note: TE for now needs to be done via pulling down the docker image directly
 extras["test_trackers"] = [
     "wandb",
@@ -47,6 +48,7 @@ extras["test_trackers"] = [
     "trackio",
 ]
 extras["dev"] = extras["quality"] + extras["testing"] + extras["rich"]
+
 extras["sagemaker"] = [
     "sagemaker",  # boto3 is a required package in sagemaker
 ]
