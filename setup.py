@@ -49,7 +49,6 @@ extras["test_trackers"] = [
     "trackio",
 ]
 extras["dev"] = extras["quality"] + extras["testing"] + extras["rich"]
-
 extras["sagemaker"] = [
     "sagemaker",  # boto3 is a required package in sagemaker
 ]
@@ -99,6 +98,7 @@ setup(
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
 )
+
 
 # Release checklist
 # 1. Checkout the release branch (for a patch the current release branch, for a new minor version, create one):
